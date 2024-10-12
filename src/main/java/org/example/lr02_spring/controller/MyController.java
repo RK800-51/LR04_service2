@@ -2,6 +2,7 @@ package org.example.lr02_spring.controller;
 
 import jakarta.validation.Valid;
 import jakarta.validation.ValidationException;
+import lombok.extern.slf4j.Slf4j;
 import org.example.lr02_spring.exception.UnsupportedCodeException;
 import org.example.lr02_spring.exception.ValidationFailedException;
 import org.example.lr02_spring.model.Request;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+@Slf4j
 @RestController
 public class MyController {
 
@@ -30,6 +32,8 @@ public class MyController {
     public ResponseEntity<Response> feedback(@Valid @RequestBody Request request, BindingResult bindingResult) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        log.info("request: {}", request);
+        log.info("Request logging took {}", System.currentTimeMillis() - Long.parseLong(request.getSystemTime()));
 
         Response response = Response.builder()
                 .uid(request.getUid())
